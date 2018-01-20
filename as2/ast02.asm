@@ -14,22 +14,32 @@ FALSE       equ 0
 EXIT_SUCCESS    equ 0
 SYS_exit        equ 60
 
+NULL		equ	0	
+
 ;------------------------
 
-bAns1   db  0
-bAns2   db  0
-bVar1   db  0
-bVar2   db  0
+bVar1		db	30
+bVar2		db	19
+bAns1		db	0
+bAns2		db	0
+wVar1		dw	6123
+wVar2		dw	2154
+wAns1		dw	0
+wAns2		dw	0
+dVar1		dd	485752666
+dVar2		dd	104361210
+dVar3		dd	-77700
+dAns1		dd	0
+dAns2		dd	0
+flt1		dd	12.25
+flt2		dd	-7.125
+pi		    dd	3.14159
+qVar1		dq	122169417133
+class		db	"CS 218", NULL
+iname		db	"Ed Jorgensen", NULL
+sname		db	"your name goes here", NULL
 
-wAns1   dw  0
-wAns2   dw  0
-wVar1   dw  0
-wVar2   dw  0
 
-dAns1   dd  0
-dAns2   dd  0
-dVar1   dd  0
-dVar2   dd  0
 
 
 
