@@ -1,0 +1,69 @@
+#---------------------------
+# CS 218 Assignment 2
+# DEBUG SCRIPTER
+#---------------------------
+echo \n\n
+b last
+run
+set pagination off
+set logging file a1out.txt
+set logging overwrite
+set logging on
+set prompt
+echo \n
+echo display byte variables \n
+echo bVar1: \t
+x/db &bVar1
+echo bVar2: \t
+x/db &bVar2
+echo bAns1: \t
+x/db &bAns1
+echo bAns2: \t 
+x/db &bAns2
+echo \n
+echo //////////
+echo wVar1: \t
+x/dh &wVar1
+echo wVar2: \t  
+x/dh &wVar2
+echo wAns1: \t 
+x/dh &wAns1
+echo wAns2: \t  
+x/dh &wAns2
+echo \n
+echo //////////
+echo dVar1: \t 
+x/dw &dVar1
+echo dVar2: \t 
+x/dw &dVar2
+echo dVar3: \t 
+x/dw &dVar3
+echo dAns1: \t
+x/dw &dAns1
+echo dAns2: \t 
+x/dw &dAns2
+echo \n
+echo //////////
+echo flt1: \t 
+x/fw &flt1
+echo flt2: \t 
+x/fw &flt2
+echo \n
+echo //////////
+echo pi: \t 
+x/fw &pi
+echo \n
+echo //////////
+echo qVar1: \t 
+x/dq &qVar1
+echo \n
+echo //////////
+echo class: \t 
+x/sb &class
+echo iname: \t 
+x/sb &iname
+echo sname: \t 
+x/sb &sname
+
+set loggin off
+quit

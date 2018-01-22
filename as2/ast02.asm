@@ -37,7 +37,7 @@ pi		    dd	3.14159
 qVar1		dq	122169417133
 class		db	"CS 218", NULL
 iname		db	"Ed Jorgensen", NULL
-sname		db	"your name goes here", NULL
+sname		db	"Doug Baek", NULL
 
 
 
@@ -45,7 +45,7 @@ sname		db	"your name goes here", NULL
 
 ;------------------------
 
-section . text
+section .text
 global _start
 _start:
 
