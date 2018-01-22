@@ -1,0 +1,79 @@
+
+------------------------------------ 
+display byte variables 
+bVar1: 	0x600140:	30
+bVar2: 	0x600141:	19
+bAns1: 	0x600142:	49
+bAns2: 	0x600143:	11
+
+display byte variables in hex 
+bVar1: 	0x600140:	0x1e
+bVar2: 	0x600141:	0x13
+bAns1: 	0x600142:	0x31
+bAns2: 	0x600143:	0x0b
+
+------------------------------------ 
+display word variables 
+wVar1: 	0x600144:	6123
+wVar2: 	0x600146:	2154
+wAns1: 	0x600148:	8277
+wAns2: 	0x60014a:	3969
+
+display word variables in hex 
+wVar1: 	0x600144:	0x17eb
+wVar2: 	0x600146:	0x086a
+wAns1: 	0x600148:	0x2055
+wAns2: 	0x60014a:	0x0f81
+
+------------------------------------ 
+display double word variables 
+dVar1: 	0x60014c:	485752666
+dVar2: 	0x600150:	104361210
+dVar3: 	0x600154:	-77700
+dAns1: 	0x600158:	590113876
+dAns2: 	0x60015c:	381391456
+
+display double word variables in hex
+dVar1: 	0x60014c:	0x1cf3ff5a
+dVar2: 	0x600150:	0x06386cfa
+dVar3: 	0x600154:	0xfffed07c
+dAns1: 	0x600158:	0x232c6c54
+dAns2: 	0x60015c:	0x16bb9260
+
+------------------------------------ 
+display quad word variable 
+qVar1: 	0x60016c:	122169417133
+
+display quad word variable in hex
+qVar1: 	0x60016c:	0x0000001c71dd5dad
+
+------------------------------------ 
+display real values in decimal 
+flt1: 	0x600160:	12.25
+flt2: 	0x600164:	-7.125
+pi: 	0x600168:	3.14159012
+
+display real values in hex
+flt1: 	0x600160:	0x41440000
+flt2: 	0x600164:	0xc0e40000
+pi: 	0x600168:	0x40490fd0
+
+------------------------------------ 
+display strings (first 6) as decimal / characters 
+class: 	0x600174:	67 'C'	83 'S'	32 ' '	50 '2'	49 '1'	56 '8'
+iname: 	0x60017b:	69 'E'	100 'd'	32 ' '	74 'J'	111 'o'	114 'r'
+sname: 	0x600188:	68 'D'	111 'o'	117 'u'	103 'g'	32 ' '	66 'B'
+
+display strings (first 6) as hex 
+class: 	0x600174:	0x43	0x53	0x20	0x32	0x31	0x38
+iname: 	0x60017b:	0x45	0x64	0x20	0x4a	0x6f	0x72
+sname: 	0x600188:	0x44	0x6f	0x75	0x67	0x20	0x42
+
+display strings as strings 
+class: 	0x600174:	"CS 218"
+iname: 	0x60017b:	"Ed Jorgensen"
+sname: 	0x600188:	"Doug Baek"
+
+------------------------------------ 
+
+ 
