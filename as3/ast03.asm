@@ -254,18 +254,21 @@ _start:
 ; -----
 ; unsigned byte division
 ;	bAns16 = bNum1 / bNum2
+	mov ax, 0
 	mov al, byte[bNum1]
 	mov ah, 0
 	mov bl, byte[bNum2]
 	div bl
 	mov byte[bAns16], al
 ;	bAns17 = bNum3 / bNum4
+	mov ax, 0
 	mov al, byte[bNum3]
 	mov ah, 0
 	mov bl, byte[bNum4]
 	div bl
 	mov byte[bAns17], al
 ;	bAns18 = wNum1 / bNum4
+	mov ax, 0
 	mov ax, word[wNum1]
 	mov ah, 0
 	mov bl, byte[bNum4]
@@ -372,16 +375,19 @@ _start:
 ; unsigned word multiplication
 ;	dAns11 = wNum1 * wNum2
 	mov ax, word[wNum1]
-	mov ax word[wNum2]
-	mov dword[Ans11], eax
+	mul ax word[wNum2]
+	mov word[Ans11], ax
+	mov word[Ans11+2], dx
 ;	dAns12  = wNum2 * wNum4
 	mov ax, word[wNum2]
 	mul ax, word[wNum4]
-	mov dword[dAns12], eax
+	mov word[dAns12], ax
+	mov word[dAns12+2], dx
 ;	dAns13  = wNum3 * wNum3
 	mov ax, word[wNum3]
 	mul ax
-	mov dword[dAns13], eax
+	mov word[dAns13], ax
+	mov word[dAns13+2], dx
 
 
 ; -----
@@ -389,17 +395,20 @@ _start:
 ;	dAns14  = wNum5 * wNum6
 	mov ax, word[wNum5]
 	imul ax, word[wNum6]
-	mov dword[dAns14], eax
+	mov word[dAns14], ax
+	mov word[dAns14+2], dx
 ;	dAns15  = wNum5 * wNum2
 	mov ax, word[wNum5]
 	imul ax, word[wNum2]
-	mov dword[dAns15], eax
+	mov word[dAns15], ax
+	mov word[dAns15+2], dx
 
 
 
 ; -----
 ; unsigned word division
 ;	wAns16 = wNum1 / wNum2
+	mov eax, 0
 	mov ax, word[wNum1]
 	mov dx, 0
 	mov bx, 0
@@ -407,20 +416,38 @@ _start:
 	div bx
 	mov word[wAns16], ax
 ;	wAns17 = wNum3 / wNum4
+	mov eax, 0
 	mov ax, word[wNum3]
 	mov dx, 0
 	mov bx, word[wNum4]
 	div bx
 	mov word[wAns17], ax
 ;	wAns18 = dNum4 / wNum1
+	mov eax, 0
+	mov eax, dword[dNum4]
+	mov dx, 0
+	mov bx, word[wNum1]
+	div bx
+	mov word[wAns18], ax
 ;	wRem18 = dNum4 % wNum1
+	mov word[wRem18], dx
 
 
 
 ; -----
 ; signed word division
 ;	wAns19 = wNum5 / wNum6
+	mov ax, word[wNum5]
+	cwd 
+	mov bx, word[wNum6]
+	idiv bx
+	mov word[wAns19], ax
 ;	wAns20 = wNum1 / wNum5
+	mov ax, word[wNum1]
+	cwd
+	mov bx, word[wNum5]
+	idiv bx
+	mov word[wAns20], ax
 ;	wAns21 = dNum6 / wNum2
 ;	wRem21 = dNum6 % wNum2
 
@@ -463,6 +490,11 @@ _start:
 ; -----
 ; unsigned double-word multiplication
 ;	qAns11  = dNum1 * dNum3
+	mov eax, dword[dNum1]
+	mul dword[dNum3]
+	mov dword[qAns11], eax
+	mov dword[qAns11+4], edx
+
 ;	qAns12  = dNum2 * dNum3
 ;	qAns13  = dNum3 * dNum4
 
