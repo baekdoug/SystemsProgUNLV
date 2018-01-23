@@ -181,13 +181,13 @@ _start:
 ; -----
 ; signed byte additions
 ;	bAns4  = bNum5 + bNum6
-	movsx al, byte[bNum5]
+	mov al, byte[bNum5]
 	add al, byte[bNum6]
-	movsx byte[bAns4], al
+	mov byte[bAns4], al
 ;	bAns5  = bNum1 + bNum6
-	movsx al, byte[bNum1]
+	mov al, byte[bNum1]
 	add al, byte[bNum6]
-	movsx byte[bAns5], al 
+	mov byte[bAns5], al 
 
 ; -----
 ; unsigned byte subtractions
@@ -211,7 +211,13 @@ _start:
 ; -----
 ; signed byte subtraction
 ;	bAns9  = bNum6 - bNum5
+	mov al, byte[bNum6]
+	sub al, byte[bNum5]
+	mov byte[bAns9],al
 ;	bAns10 = bNum5 - bNum2
+	mov al, byte[bNum5]
+	sub al, byte[bNum2]
+	mov byte[bAns10], al
 
 
 
@@ -235,25 +241,66 @@ _start:
 ; -----
 ; signed byte multiplication
 ;	wAns14  = bNum5 * bNum5
+	mov al, byte[bNum5]
+	imul al
+	mov word[wAns14], ax
 ;	wAns15  = bNum1 * bNum5
+	mov al, byte[bNum1]
+	imul byte[bNum5]
+	mov word[wAns15], ax
 
 
 
 ; -----
 ; unsigned byte division
 ;	bAns16 = bNum1 / bNum2
+	mov al, byte[bNum1]
+	mov ah, 0
+	mov bl, byte[bNum2]
+	div bl
+	mov byte[bAns16], al
 ;	bAns17 = bNum3 / bNum4
+	mov al, byte[bNum3]
+	mov ah, 0
+	mov bl, byte[bNum4]
+	div bl
+	mov byte[bAns17], al
 ;	bAns18 = wNum1 / bNum4
+	mov ax, word[wNum1]
+	mov ah, 0
+	mov bl, byte[bNum4]
+	div bl
+	mov byte[bAns18], al
 ;	bRem18 = wNum1 % bNum4
+	mov byte[bRem18], ah
 
 
 
 ; -----
 ; signed byte division
 ;	bAns19 = bNum5 / bNum6
+	mov al, byte[bNum5]
+	mov ah, 0
+	cbw
+	mov bl, byte[bNum6]
+	idiv bl
+	mov byte[bAns19], al
 ;	bAns20 = bNum6 / bNum3
+	mov al, byte[bNum6]
+	mov ah, 0
+	cbw
+	mov bl, byte[bNum3]
+	idiv bl
+	mov byte[bAns20], al
 ;	bAns21 = wNum6 / bNum4
+	mov ax, word[Num6]
+	mov ah, 0
+	cbw
+	mov bl, byte[bNum4]
+	idiv bl
+	mov byte[bAns21], al
 ;	bRem21 = wNum6 % bNum4
+	mov byte[bRem21], ah
 
 
 
@@ -264,15 +311,30 @@ _start:
 ; -----
 ; unsigned word additions
 ;	wAns1  = wNum1 + wNum3
+	mov ax, word[wNum1]
+	add ax, word[wNum3]
+	mov word[wAns1], ax
 ;	wAns2  = wNum2 + wNum4
+	mov ax, word[wNum2]
+	add ax, word[wNum4]
+	mov word[wAns2], ax
 ;	wAns3  = wNum3 + wNum2
-
+	mov ax, word[wNum3]
+	add ax, word[wNum2]
+	mov word[wAns3], ax
 
 
 ; -----
 ; signed word additions
 ;	wAns4  = wNum5 + wNum6
+	mov ax, word[wNum5]
+	add ax, word[wNum6]
+	mov word[wAns4], ax
+
 ;	wAns5  = wNum1 + wNum6
+	mov ax, word[wNum1]
+	add ax, word[wNum6]
+	mov word[wAns5], ax
 
 
 
