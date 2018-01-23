@@ -341,37 +341,77 @@ _start:
 ; -----
 ; unsigned word subtractions
 ;	wAns6  = wNum1 - wNum2
+	mov ax, word[wNum1]
+	sub ax, word[wNum2]
+	mov word[wAns6], ax
 ;	wAns7  = wNum3 - wNum4
+	mov	ax, word[wNum3]
+	sub ax, word[wNum4]
+	mov word[wAns7], ax
 ;	wAns8  = wNum2 - wNum4
+	mov ax, word[wNum2]
+	sub ax, word[wNum4]
+	mov word[Ans8], ax
 
 
 
 ; -----
 ; signed word subtraction
 ;	wAns9  = wNum5 - wNum6
+	mov ax, word[wNum5]
+	sub ax, word[wNum6]
+	mov word[wAns9], ax
 ;	wAns10  = wNum2 - wNum6
+	mov ax, word[wNum2]
+	sub ax, word[wNum6]
+	mov word[wAns9]
 
 
 
 ; -----
 ; unsigned word multiplication
 ;	dAns11 = wNum1 * wNum2
+	mov ax, word[wNum1]
+	mov ax word[wNum2]
+	mov dword[Ans11], eax
 ;	dAns12  = wNum2 * wNum4
+	mov ax, word[wNum2]
+	mul ax, word[wNum4]
+	mov dword[dAns12], eax
 ;	dAns13  = wNum3 * wNum3
-
+	mov ax, word[wNum3]
+	mul ax
+	mov dword[dAns13], eax
 
 
 ; -----
 ; signed word multiplication
 ;	dAns14  = wNum5 * wNum6
+	mov ax, word[wNum5]
+	imul ax, word[wNum6]
+	mov dword[dAns14], eax
 ;	dAns15  = wNum5 * wNum2
+	mov ax, word[wNum5]
+	imul ax, word[wNum2]
+	mov dword[dAns15], eax
 
 
 
 ; -----
 ; unsigned word division
 ;	wAns16 = wNum1 / wNum2
+	mov ax, word[wNum1]
+	mov dx, 0
+	mov bx, 0
+	mov bx, word[wNum2]
+	div bx
+	mov word[wAns16], ax
 ;	wAns17 = wNum3 / wNum4
+	mov ax, word[wNum3]
+	mov dx, 0
+	mov bx, word[wNum4]
+	div bx
+	mov word[wAns17], ax
 ;	wAns18 = dNum4 / wNum1
 ;	wRem18 = dNum4 % wNum1
 
