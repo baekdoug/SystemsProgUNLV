@@ -631,62 +631,144 @@ _start:
 	add rax, qword[qNum3]
 	mov qword[qAns1], rax
 ;	qAns2  = qNum1 + qNum4
+	mov rax, qword[qNum1]
+	add rax, qword[qNum4]
+	mov qword[qAns2], rax
 ;	qAns3  = qNum4 + qNum2
+	mov rax, qword[qNum4]
+	add rax, qword[qNum2]
+	mov qword[qAns1], rax
 
 
 
 ; -----
 ; signed quadword additions
 ;	qAns4  = qNum6 + qNum5
+	mov rax, qword[qNum6]
+	add rax, qword[qNum5]
+	mov qword[qNum6], rax
 ;	qAns5  = qNum1 + qNum5
+	mov rax, qword[qNum1]
+	add rax, qword[qNum5]
+	mov qword[qAns5], rax
 
 
 
 ; -----
 ; unsigned quadword subtractions
 ;	qAns6  = qNum2 - qNum3
+	mov rax, qword[qNum2]
+	sub rax, qword[qNum3]
+	mov qword[qAns6], rax
 ;	qAns7  = qNum1 - qNum4
+	mov rax, qword[qNum1]
+	sub rax, qword[qNum4]
+	mov qword[qAns7], rax
 ;	qAns8  = qNum2 - qNum3
+	mov rax, qword[qNum2]
+	sub rax, qword[qNum3]
+	mov qword[qAns8], rax
 
 
 
 ; -----
 ; signed quadword subtraction
 ;	qAns9  = qNum6 - qNum5
+	mov rax, qword[qNum6]
+	sub rax, qword[qNum5]
+	mov qword[qAns9], rax
 ;	qAns10 = qNum6 - qNum2
+	mov rax, qword[qNum6]
+	sub rax, qword[qNum2]
+	mov qword[qAns10], rax
 
 
 
 ; -----
 ; unsigned quadword multiplication
 ;	dqAns11  = qNum3 * qNum2
+	mov rax, qword[qNum3]
+	mov rdx, 0
+	mul qword[qNum2]
+	mov qword[dqAns11], rax
+	mov qword[dqAns11+8], rdx
 ;	dqAns12  = qNum3 * qNum3
+	mov rax, qword[qNum3]
+	mul rax
+	mov qword[dqAns12], rax
+	mov qword[dqAns12+8], rdx
+
 ;	dqAns13  = qNum4 * qNum1
+	mov rax, qword[qNum4]
+	mul qword[qNum1]
+	mov qword[dqAns13], rax
+	mov qword[dqAns13+8], rdx
 
 
 
 ; -----
 ; signed quadword multiplication
 ;	dqAns14  = qNum1 * qNum6
+	mov rax, qword[qNum1]
+	imul qword[qNum6]
+	mov qword[dqAns14], rax
+	mov qword[dqAns14+8], rdx
 ;	dqAns15  = qNum5 * qNum6
+	mov rax, qword[qNum5]
+	imul qword[qNum6]
+	mov qword[dqAns15], rax
+	mov qword[dqAns15+8], rdx
 
 
 
 ; -----
 ; unsigned quadword division
 ;	qAns16 = qNum1 / qNum2
+	mov rax, 0
+	mov rdx, 0
+	mov rax, qword[qNum1]
+	mov rbx, qword[qNum2]
+	div 
+	mov qword[qAns16], rax
 ;	qAns17 = qNum3 / qNum4
+	mov rax, qword[qNum3]
+	mov rbx, qword[qNum4]
+	div
+	mov qword[qAns17], rax
 ;	qAns18 = dqAns11 / qNum4
+	mov rax, qword[dqAns11]
+	mov rbx, qword[qNum4]
+	div
+	mov qword[qAns18], rax
 ;	qRem18 = dqAns11 % qNum4
+	mov qword[qRem18], rdx
 
 
 
 ; -----
 ; signed quadword division
 ;	qAns19 = qNum6 / qNum5
+	mov rax, 0
+	mov rdx, 0
+	mov rax, qword[qNum6]
+	cqo
+	mov rbx, qword[qNum5]
+	idiv
+	mov qword[qAns19], rax
 ;	qAns20 = qNum2 / qNum5
+	mov rax, qword[qNum2]
+	cqo
+	mov rbx, qword[qNum5]
+	idiv
+	mov qword[qAns20], rax
 ;	qAns21 = dqAns12 / qNum6
+	mov rax, qword[dqAns12]
+	cqo
+	mov rbx, qword[qNum6]
+	idiv
+	mov qword[qAns21], rax
 ;	qRem21 = dqAns12 % qNum6
+	mov qword[qRem21], rdx
 
 
 
