@@ -296,7 +296,7 @@ _start:
 	idiv bl
 	mov byte[bAns20], al
 ;	bAns21 = wNum6 / bNum4
-	mov ax, word[Num6]
+	mov ax, word[bNum6]
 	mov ah, 0
 	cbw
 	mov bl, byte[bNum4]
@@ -354,7 +354,7 @@ _start:
 ;	wAns8  = wNum2 - wNum4
 	mov ax, word[wNum2]
 	sub ax, word[wNum4]
-	mov word[Ans8], ax
+	mov word[wAns8], ax
 
 
 
@@ -367,7 +367,7 @@ _start:
 ;	wAns10  = wNum2 - wNum6
 	mov ax, word[wNum2]
 	sub ax, word[wNum6]
-	mov word[wAns9]
+	mov word[wAns9], ax
 
 
 
@@ -375,12 +375,12 @@ _start:
 ; unsigned word multiplication
 ;	dAns11 = wNum1 * wNum2
 	mov ax, word[wNum1]
-	mul ax word[wNum2]
-	mov word[Ans11], ax
-	mov word[Ans11+2], dx
+	mul word[wNum2]
+	mov word[dAns11], ax
+	mov word[dAns11+2], dx
 ;	dAns12  = wNum2 * wNum4
 	mov ax, word[wNum2]
-	mul ax, word[wNum4]
+	mul word[wNum4]
 	mov word[dAns12], ax
 	mov word[dAns12+2], dx
 ;	dAns13  = wNum3 * wNum3
@@ -394,12 +394,12 @@ _start:
 ; signed word multiplication
 ;	dAns14  = wNum5 * wNum6
 	mov ax, word[wNum5]
-	imul ax, word[wNum6]
+	imul word[wNum6]
 	mov word[dAns14], ax
 	mov word[dAns14+2], dx
 ;	dAns15  = wNum5 * wNum2
 	mov ax, word[wNum5]
-	imul ax, word[wNum2]
+	imul word[wNum2]
 	mov word[dAns15], ax
 	mov word[dAns15+2], dx
 
@@ -504,7 +504,7 @@ _start:
 	mov dword[dAns6], eax
 ;	dAns7  = dNum3 - dNum4
 	mov eax, dword[dNum3]
-	sub eax, dword[dum4]
+	sub eax, dword[dNum4]
 	mov dword[dAns7], eax
 ;	dAns8  = dNum2 - dNum3
 	mov eax, dword[dNum2]
@@ -598,20 +598,20 @@ _start:
 	mov eax, dword[dNum6]
 	cdq
 	mov ebx, dword[dNum5]
-	idiv
+	idiv ebx
 	mov dword[dAns19], eax
 ;	dAns20 = dNum1 / dNum5
 	mov eax, dword[dNum1]
 	cdq
 	mov ebx, dword[dNum5]
-	idiv
-	mov dword[dAns20]
+	idiv ebx
+	mov dword[dAns20], eax
 ;	dAns21 = qAns12 / dNum6
 	mov rax, 0
 	mov rax, qword[qAns12]
 	cqo
 	mov ebx, dword[dNum6]
-	idiv
+	idiv ebx
 	mov dword[dAns21], eax
 
 ;	dRem21 = qAns12 % dNum6
@@ -728,17 +728,17 @@ _start:
 	mov rdx, 0
 	mov rax, qword[qNum1]
 	mov rbx, qword[qNum2]
-	div 
+	div rbx
 	mov qword[qAns16], rax
 ;	qAns17 = qNum3 / qNum4
 	mov rax, qword[qNum3]
 	mov rbx, qword[qNum4]
-	div
+	div rbx
 	mov qword[qAns17], rax
 ;	qAns18 = dqAns11 / qNum4
 	mov rax, qword[dqAns11]
 	mov rbx, qword[qNum4]
-	div
+	div rbx
 	mov qword[qAns18], rax
 ;	qRem18 = dqAns11 % qNum4
 	mov qword[qRem18], rdx
@@ -753,19 +753,19 @@ _start:
 	mov rax, qword[qNum6]
 	cqo
 	mov rbx, qword[qNum5]
-	idiv
+	idiv rbx
 	mov qword[qAns19], rax
 ;	qAns20 = qNum2 / qNum5
 	mov rax, qword[qNum2]
 	cqo
 	mov rbx, qword[qNum5]
-	idiv
+	idiv rbx
 	mov qword[qAns20], rax
 ;	qAns21 = dqAns12 / qNum6
 	mov rax, qword[dqAns12]
 	cqo
 	mov rbx, qword[qNum6]
-	idiv
+	idiv rbx
 	mov qword[qAns21], rax
 ;	qRem21 = dqAns12 % qNum6
 	mov qword[qRem21], rdx
