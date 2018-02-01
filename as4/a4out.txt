@@ -1,0 +1,19 @@
+----- 
+
+lst: 		0x6002d4:	1	2	3	4
+0x6002e4:	5	6
+length: 		0x6002ec:	6
+lstMin: 		0x6002f0:	0
+lstMid: 		0x6002f4:	0
+lstMax: 		0x6002f8:	6
+lstSum: 		0x6002fc:	21
+lstAve: 		0x600300:	3
+evenCnt: 		0x600304:	3
+evenSum: 		0x600308:	12
+evenAve: 		0x60030c:	4
+tenCnt: 		0x600310:	0
+tenSum: 		0x600314:	0
+tenAve: 		0x600318:	0
+--------------------------------------------- 
+
+ 

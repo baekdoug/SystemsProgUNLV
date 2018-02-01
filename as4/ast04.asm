@@ -17,7 +17,7 @@ SYS_exit	equ	60			; call code for terminate
 
 ; -----
 
-lst		dd	 1, 2, 3, 4, 5
+lst			dd	1, 2, 3, 4, 5
 		
 length		dd	5
 
@@ -44,6 +44,13 @@ _start:
 
 mov ecx, 0
 mov ecx, dword[length]
+dec ecx
+mov r9d, 0
+mov r9d, dword[ebx + (ecx * 4)]
+mov dword[lstMin], r9d
+mov r9d, 0
+mov r9d, dword[ebx + (ecx * 4)]
+mov dword[lstMax], r9d
 mov rbx, 0
 mov ebx, lst
 
@@ -53,14 +60,19 @@ mainLp:
 mov r9d, 0
 
 mov r9d, dword[lstMin]
-cmp r9d, dword[ebx + (ecx * 4)]
+mov r10d, 0
+mov r10d, dword[ebx + (ecx * 4)]
+cmp r9d, r10d
 jl skipMin
+mov r9d, dword[ebx + (ecx * 4)]
 mov dword[lstMin], r9d
+
 
 skipMin:
 mov r9d, dword[lstMax]
 cmp r9d, dword[ebx + (ecx * 4)]
 jg skipMax
+mov r9d, dword[ebx + (ecx * 4)]
 mov dword[lstMax], r9d
 
 skipMax:
@@ -74,7 +86,9 @@ mov eax, 0
 mov edx, 0
 mov eax, dword[ebx + (ecx * 4)]
 cdq
-idiv 2
+mov r10, 0
+mov r10, 2
+idiv r10d
 cmp edx, 0
 jne notEven
 mov eax, 0
@@ -82,9 +96,11 @@ mov eax, dword[evenCnt]
 add eax, 1
 mov dword[evenCnt], eax
 
+mov eax, 0
 mov eax, dword[ebx + (ecx * 4)]
 add eax, dword[evenSum]
 mov dword[evenSum], eax
+mov eax, 0
 
 
 notEven:
@@ -92,7 +108,9 @@ notEven:
 mov rax, 0
 mov eax, dword[ebx + (ecx * 4)]
 cdq
-idiv 10
+mov r10, 0
+mov r10d, 10
+idiv r10d
 cmp edx, 0
 jne notTen
 mov eax, 0
@@ -106,13 +124,70 @@ mov dword[tenSum], eax
 
 notTen:
 
+dec ecx
 cmp ecx, 0
-jne mainLp
+jge mainLp
+
+mov rax, 0
+mov rdx, 0
+mov eax, dword[lstSum]
+cdq 
+idiv dword[length]
+mov dword[lstAve], eax
+
+mov rax, 0
+mov rdx, 0
+mov eax, dword[evenSum]
+cdq
+idiv dword[evenCnt]
+mov dword[evenAve], eax
+
+mov rax, 0
+mov rdx, 0
+mov eax, dword[tenSum]
+cdq
+idiv dword[tenCnt]
+mov dword[tenAve], eax
+
+mov rax, 0
+mov rdx, 0
+mov rcx, 0
+
+mov eax, dword[length]
+mov ecx, 2
+div ecx
+
+cmp edx, 0
+jne isOdd
+
+mov ecx, 0 
+mov ecx, dword[ebx + (eax * 4)]
+inc eax
+add ecx, dword[ebx + (eax * 4)]
+mov rax, 0
+mov rdx, 0
+
+mov eax, ecx
+mov ecx, 2
+cdq
+idiv ecx
+mov dword[lstMid], eax
 
 
+jmp finishThis
+isOdd:
 
+mov rax, 0
+mov eax, dword[length]
+mov rcx, 0
+mov ecx, 2
+div ecx
+inc eax
+mov ecx, 0
+mov ecx, dword[ebx + (eax * 4)]
+mov dword[lstMid], ecx
 
-
+finishThis:
 
 
 
