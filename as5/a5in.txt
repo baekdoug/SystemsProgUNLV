@@ -1,0 +1,42 @@
+break last
+run
+set pagination off
+set logging file a5out.txt
+set logging overwrite
+set logging on
+set prompt
+echo ----- \n\n
+echo hexPerims: \t\t \n
+x/50dw &hexPerims
+echo hexAreas: \t\t \n
+x/50dw &hexAreas
+echo length: \t\t \n
+x/dw &length
+echo areaMin: \t\t \n
+x/dw &areaMin
+echo areaMid: \t\t \n
+x/dw &areaMid
+echo areaMax: \t\t \n
+x/dw &areaMax
+echo areaSum: \t\t \n
+x/dw &areaSum
+echo areaAve: \t\t \n
+x/dw &areaAve
+
+echo \n\n 
+
+echo perimMin: \t\t \n
+x/dw &perimMin
+echo perimMid: \t\t \n
+x/dw &perimMid
+echo perimMax: \t\t \n
+x/dw &perimMax
+echo perimSum: \t\t \n
+x/dw &perimSum
+echo perimAve: \t\t \n
+x/dw &perimAve
+
+echo --------------------------------------------- \n
+echo \n \n
+set logging off
+quit
