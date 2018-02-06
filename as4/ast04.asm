@@ -17,9 +17,9 @@ SYS_exit	equ	60			; call code for terminate
 
 ; -----
 
-lst			dd	1, 2, 3, 4, 5
+lst			dd	1, 2, 3, 4, 5, 10
 		
-length		dd	5
+length		dd	6
 
 lstMin		dd	0
 lstMid		dd	0
@@ -45,14 +45,15 @@ _start:
 mov ecx, 0
 mov ecx, dword[length]
 dec ecx
+mov rbx, 0
+mov ebx, lst
 mov r9d, 0
 mov r9d, dword[ebx + (ecx * 4)]
 mov dword[lstMin], r9d
 mov r9d, 0
 mov r9d, dword[ebx + (ecx * 4)]
 mov dword[lstMax], r9d
-mov rbx, 0
-mov ebx, lst
+
 
 mainLp:
 
@@ -149,6 +150,8 @@ cdq
 idiv dword[tenCnt]
 mov dword[tenAve], eax
 
+
+;-----MID STUFF
 mov rax, 0
 mov rdx, 0
 mov rcx, 0
@@ -161,6 +164,7 @@ cmp edx, 0
 jne isOdd
 
 mov ecx, 0 
+dec eax
 mov ecx, dword[ebx + (eax * 4)]
 inc eax
 add ecx, dword[ebx + (eax * 4)]
@@ -182,9 +186,9 @@ mov eax, dword[length]
 mov rcx, 0
 mov ecx, 2
 div ecx
-inc eax
+dec eax
 mov ecx, 0
-mov ecx, dword[ebx + (eax * 4)]
+mov ecx, dword[lst + (eax * 4)]
 mov dword[lstMid], ecx
 
 finishThis:

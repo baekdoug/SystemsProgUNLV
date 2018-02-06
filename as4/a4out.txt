@@ -1,19 +1,19 @@
 ----- 
 
-lst: 		0x6002d4:	1	2	3	4
-0x6002e4:	5	6
-length: 		0x6002ec:	6
-lstMin: 		0x6002f0:	0
-lstMid: 		0x6002f4:	0
-lstMax: 		0x6002f8:	6
-lstSum: 		0x6002fc:	21
-lstAve: 		0x600300:	3
-evenCnt: 		0x600304:	3
-evenSum: 		0x600308:	12
-evenAve: 		0x60030c:	4
-tenCnt: 		0x600310:	0
-tenSum: 		0x600314:	0
-tenAve: 		0x600318:	0
+lst: 		0x600300:	1	2	3	4
+0x600310:	5	10
+length: 		0x600318:	6
+lstMin: 		0x60031c:	1
+lstMid: 		0x600320:	3
+lstMax: 		0x600324:	10
+lstSum: 		0x600328:	25
+lstAve: 		0x60032c:	4
+evenCnt: 		0x600330:	3
+evenSum: 		0x600334:	16
+evenAve: 		0x600338:	5
+tenCnt: 		0x60033c:	1
+tenSum: 		0x600340:	10
+tenAve: 		0x600344:	10
 --------------------------------------------- 
 
  
