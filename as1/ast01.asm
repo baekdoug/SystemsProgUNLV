@@ -1,7 +1,7 @@
 ;  Must include:
-;	<your name>
+;	Doug Baek
 ;	assignment 01
-;	section <001|002>
+;	section <001>
 
 ;   No name, asst, section -> no points!
 
