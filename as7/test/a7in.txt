@@ -1,0 +1,27 @@
+break last
+run
+set pagination off
+set logging file a7out.txt
+set logging overwrite
+set logging on
+set prompt
+echo ----- \n\n
+
+echo lst: \t\t \n
+x/5dd &lst
+
+echo min: \t\t \n
+x/1dd &min
+echo max: \t\t \n
+x/1dd &max
+echo sum: \t\t \n
+x/1dd &sum
+echo avg: \t\t \n
+x/1dd &avg
+
+
+
+echo --------------------------------------------- \n
+echo \n \n
+set logging off
+quit

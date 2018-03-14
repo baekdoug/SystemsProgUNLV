@@ -32,10 +32,10 @@ mov rdx, 0
 mov r9, 0
 mov r9d, 36
 mov r10, 0 ;tempNum
-mov r11, 0 ;tempString
+mov r11, 0 ;tempString in stack
 mov r12, 0 ;String
 mov eax, dword[%1]
-lea r12, [%1]
+lea r12, [%2]
 
 
 %%convert2String:
@@ -47,7 +47,8 @@ cmp bl, 10
 jge %%isAlphaInt
 
 add bl, "0"
-mov byte[r11 + rcx], bl
+mov r11b, bl
+push r11
 inc ecx
 
 jmp %%doneInt
@@ -55,7 +56,8 @@ jmp %%doneInt
 
 sub bl, 10
 add bl, "A"
-mov byte[r11 + rcx], bl
+mov r11b, bl
+push r11
 inc ecx
 
 
@@ -63,10 +65,10 @@ inc ecx
 cmp eax, 0
 jne %%convert2String
 mov r9, 0
-dec r9
 %%moveToString:
 mov rax, 0
-mov al, byte[r11 + rcx]
+pop r11
+mov al, r11b
 mov byte[r12 + r9], al
 
 
@@ -74,8 +76,8 @@ inc r9
 dec ecx
 cmp ecx, 0
 jge %%moveToString
-
-mov byte[r12 + r9], NULL
+dec r9
+ mov byte[r12 + r9], NULL
 
 
 pop rax
@@ -116,7 +118,7 @@ SYS_time	equ	201			; system call code for get time
 
 LF		equ	10
 SPACE		equ	" "
-NULL		equ	16
+NULL		equ	0
 ESC		equ	27
 
 

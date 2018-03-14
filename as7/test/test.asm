@@ -1,147 +1,3 @@
-; CS 218
-; Assignment #7
-
-; Sort a list of number using the shell sort algorithm.
-; Also finds the minimum, median, maximum, and average of the list.
-
-; **********************************************************************************
-;  Macro, "int2b36", to convert a signed base-10 integer into an
-;  ASCII string representing the base-36 value.  The macro stores
-;  the result into an ASCII string (byte-size, right justified,
-;  blank filled, NULL terminated).  Each integer is a doubleword value.
-;  Assumes valid/correct data.  As such, no error checking is performed.
-
-; -----
-;  Arguments
-;	%1 -> integer number
-;	%2 -> string address
-
-%macro	int2b36	2
-
-
-;	YOUR CODE GOES HERE
-
-
-push rax
-push rbx
-push rcx
-push rdx
-push r9
-push r10
-push r11
-push r12
-
-
-mov rax, 0
-mov rbx, 0
-mov rcx, 0
-mov rdx, 0
-mov r9, 0
-mov r9d, 36
-mov r10, 0 ;tempNum
-mov r11, 0 ;tempString in stack
-mov r12, 0 ;String
-mov eax, dword[%1]
-lea r12, [%2]
-
-
-%%convert2String:
-div r9d 
-mov r10d, edx
-mov rdx, 0
-mov bl, r10b
-cmp bl, 10
-jge %%isAlphaInt
-
-add bl, "0"
-mov r11b, bl
-push r11
-inc ecx
-
-jmp %%doneInt
-%%isAlphaInt:
-
-sub bl, 10
-add bl, "A"
-mov r11b, bl
-push r11
-inc ecx
-
-
-%%doneInt:
-cmp eax, 0
-jne %%convert2String
-mov r9, 0
-%%moveToString:
-mov rax, 0
-pop r11
-mov al, r11b
-mov byte[r12 + r9], al
-
-
-inc r9
-dec ecx
-cmp ecx, 0
-jge %%moveToString
-dec r9
- mov byte[r12 + r9], NULL
-
-
-pop rax
-pop rbx
-pop rcx
-pop rdx
-pop r9
-pop r10
-pop r11
-pop r12
-
-
-
-%endmacro
-
-
-; --------------------------------------------------------------
-;  Simple macro to display a string.
-;	Call:	printString  <stringAddress>
-
-;	Arguments:
-;		%1 -> <string>, string address
-
-;  Count characters (excluding NULL).
-;  Display string starting at address <string>
-
-%macro	printString	1
-	push	rax			; save altered registers
-	push	rdi
-	push	rsi
-	push	rdx
-	push	rcx
-
-	mov	rdx, 0
-	mov	rdi, %1
-%%countLoop:
-	cmp	byte [rdi], NULL
-	je	%%countLoopDone
-	inc	rdi
-	inc	rdx
-	jmp	%%countLoop
-%%countLoopDone:
-
-	mov	rax, SYS_write		; system call for write (SYS_write)
-	mov	rdi, STDOUT		; standard output
-	mov	rsi, %1			; address of the string
-	syscall				; call the kernel
-
-	pop	rcx			; restore registers to original values
-	pop	rdx
-	pop	rsi
-	pop	rdi
-	pop	rax
-%endmacro
-
-; ---------------------------------------------
-
 section	.data
 
 ; -----
@@ -172,7 +28,9 @@ ESC		equ	27
 ; -----
 ;  Provided data
 
-lst	dd	1113, 1232, 2146, 1376, 5120, 2356,  164, 4565, 155, 3157
+lst dd 1, 3, 2, 5, 4
+
+lst2	dd	1113, 1232, 2146, 1376, 5120, 2356,  164, 4565, 155, 3157
 	dd	 759, 326,  171,  147, 5628, 7527, 7569,  177, 6785, 3514
 	dd	1001,  128, 1133, 1105,  327,  101,  115, 1108,    1,  115
 	dd	1227, 1226, 5129,  117,  107,  105,  109,  999,  150,  414
@@ -203,7 +61,7 @@ lst	dd	1113, 1232, 2146, 1376, 5120, 2356,  164, 4565, 155, 3157
 	dd	6561,  283, 1133, 1150,  135, 5631, 8185,  178, 1197,  185
 	dd	 649, 6366, 1162,  167,  167,  177,  169, 1177,  175, 1169
 
-len	dd	300
+len	dd	5
 
 min	dd	0
 med	dd	0
@@ -250,12 +108,13 @@ tmpString	resb	MAX_STR_SIZE
 ; ---------------------------------------------
 
 section	.text
-global	_start
+global _start
 _start:
 
-; ******************************
-;  Shell Sort.
+; -----
+; Shell Sort
 
+;	h = 1;
 mov rax, 0
 mov eax, 1
 mov rbx, 0
@@ -335,87 +194,7 @@ div dword[dThree]
 cmp eax, 0
 ja whileLp2	
 
-
-;  Find sum and compute the average.
-mov rax, 0
-mov rcx, 0
-mov ecx, dword[len]
-
-sumLp:
-mov eax, dword[lst + (ecx*4)]
-add dword[sum], eax
-loop sumLp
-
-div dword[len]
-mov dword[avg], eax
-
-
-
-
-
-
-
-
-
-;  Get/save min and max.
-mov rax, 0
-mov eax, dword[lst]
-mov dword[min], eax
-
-mov rax, 0
-mov rbx, 0
-mov ebx, dword[len]
-dec rbx
-mov eax, dword[lst + (ebx * 4)]
-mov dword[max], eax
-
-;  Find median.
-
-
-
-
-
-
-
-
-
-
-; ******************************
-;  Display results to screen in hex.
-
-	printString	hdr
-
-	printString	hdrMin
-	int2b36		min, tmpString
-	printString	tmpString
-	printString	newLine
-
-	printString	hdrMax
-	int2b36		max, tmpString
-	printString	tmpString
-	printString	newLine
-
-	printString	hdrMed
-	int2b36		med, tmpString
-	printString	tmpString
-	printString	newLine
-
-	printString	hdrSum
-	int2b36		sum, tmpString
-	printString	tmpString
-	printString	newLine
-
-	printString	hdrAve
-	int2b36		avg, tmpString
-	printString	tmpString
-	printString	newLine
-	printString	newLine
-
-; ******************************
-;  Done, terminate program.
-
 last:
 	mov	rax, SYS_exit
 	mov	rbx, EXIT_SUCCESS
 	syscall
-
