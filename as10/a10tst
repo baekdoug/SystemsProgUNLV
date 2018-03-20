@@ -1,0 +1,371 @@
+#!/bin/bash
+# CS 218, assignment #10 test script.
+
+# ---------------------------------------------------------
+# Initial checks.
+#	Ensure executable file exists.
+
+if [ -z $1 ]; then
+	echo "Error, must provide executable file name."
+	exit
+fi
+#
+if [ ! -e $1 ] || [ ! -x $1 ]; then
+	echo "Error, unable to find $1 executable file."
+	exit
+fi
+#
+# ---------------------------------------------------------
+# Define script variables and function
+#
+bolded=`tput bold`
+normal=`tput sgr0`
+#
+pause() {
+	if [ "$1" = "skip" ]; then
+		echo
+	else
+		echo
+		echo -n "Press return to continue"
+		read
+		clear
+	fi
+}
+#
+# ---------------------------------------------------------
+# skip command line arguments tests...
+#
+if [ ! "$2" == "ex" ]; then
+#
+# ---------------------------------------------------------
+# Display initial page
+#
+clear
+echo
+echo
+echo ${bolded}Assignment 10 - Error Testing Utility${normal}
+echo
+echo
+echo
+echo "Various tests should generate appropriate error messages."
+echo
+echo
+echo "Note, this utility assumes the program is working or very"
+echo "      close to working.  Testing on an incomplete"
+echo "      program will not be useful."
+echo
+echo
+pause $2
+#
+# ---------------------------------------------------------
+# Begin tests.
+#
+echo
+echo "------------------------------------"
+echo "Error testing -> usage message"
+echo "     $1 should show usage message"
+echo
+echo
+echo ${bolded}$1${normal}
+./$1
+echo
+#
+echo ${bolded}$1${normal}
+./$1     
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> invalid or incomplete command line arguments."
+echo "     $1 should show message for invalid or incomplete command line arguments."
+echo
+echo
+echo ${bolded}$1 -r${normal}
+./$1 -r
+echo
+#
+echo ${bolded}$1 -r1${normal}
+./$1 -r1
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 9zldr 96${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl 9zldr 96
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> wrong or bad height specifier"
+echo "     $1 should show error message for incorrect height specifier"
+echo
+echo
+#
+echo ${bolded}$1 h go -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 h go -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 - go -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 - go -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h1 go -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h1 go -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -w go -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -w go -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> bad height value"
+echo "     $1 should show error message for incorrect height value"
+echo
+echo
+#
+echo ${bolded}$1 -h go34 -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go34 -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h 2r -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h 2r -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h 7^7 -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h 7^7 -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h XD -w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h XD -w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> wrong or width specifier"
+echo "     $1 should show error message for incorrect width specifier"
+echo
+echo
+#
+echo ${bolded}$1 -h go w go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go w go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go - go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go - go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w2 go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w2 go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -h go -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -h go -sp 5 -ps 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> bad width value"
+echo "     $1 should show error message for incorrect width value"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go34 -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go34 -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w 2R -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w 2R -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w 7^7 -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w 7^7 -sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w XD -sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w XD -sp 5 -ps 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> wrong or bad draw speed specifier"
+echo "     $1 should show error message for incorrect draw speed specifier"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -s 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -s 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go sp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go sp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -spp 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -spp 5 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -ps 5 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -ps 5 -ps 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> bad draw speed value"
+echo "     $1 should show error message for incorrect draw speed value"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 0 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 0 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp R+T -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp R+T -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 7^7 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 7^7 -ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 100 -ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 100 -ps 2 -cl 9zldr
+echo
+#
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> wrong or bad point size specifier"
+echo "     $1 should show error message for incorrect ps specifier"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -p 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -p 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 ps 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 ps 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -pss 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -pss 2 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -ps 5 -sp 2 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -sp 2 -cl 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> bad point size value"
+echo "     $1 should show error message for incorrect ps value"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 0 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 0 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 11 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 11 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 7^7 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 7^7 -cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 56 -cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 56 -cl 9zldr
+echo
+#
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> wrong or color specifier"
+echo "     $1 should show error message for incorrect color specifier"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -c 9zlds${normal}
+./$1 -h go -w go -sp 5 -ps 2 -c 9zlds
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cll 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cll 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 cl 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 2 cl 9zldr
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 - 9zldr${normal}
+./$1 -h go -w go -sp 5 -ps 2 - 9zldr
+echo
+#
+pause $2
+# ----------------------
+#
+echo "------------------------------------"
+echo "Error testing -> bad color value"
+echo "     $1 should show error message for incorrect color value"
+echo
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 9zldt${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl 9zldt
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 1B${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl 1B
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 7^7${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl 7^7
+echo
+#
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 0${normal}
+./$1 -h go -w go -sp 5 -ps 2 -cl 0
+echo
+#
+pause $2
+#
+fi
+# ---------------------------------
+# OK, final test is to display image
+#
+echo "------------------------------------"
+echo "Final test -> display"
+echo "     $1 should show image from assignment handout"
+echo "     Type q or x to terminate"
+echo
+echo
+echo ${bolded}$1 -h go -w go -sp 5 -ps 2 -cl 9Y70F${normal}
+pause $2
+./$1 -h go -w go -sp 5 -ps 2 -cl 9Y70F
+# ./$1 -h go -w go -sp 15 -ps 2 -cl 9Y70F
+

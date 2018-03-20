@@ -1,0 +1,27 @@
+break last
+run
+set pagination off
+set logging file test.txt
+set logging overwrite
+set logging on
+set prompt
+echo ----- \n\n
+echo iNum1: \t\t \n
+x/1dd &iNum1
+
+echo tempStringNumbers: \t\t \n
+x/10db &tempString
+
+echo tempString: \t\t \n
+x/10sb &tempString
+echo num1String: \t\t \n
+x/2sb &num1String
+
+echo num1String DEC: \t\t \n
+x/10db &num1String
+
+
+echo --------------------------------------------- \n
+echo \n \n
+set logging off
+quit

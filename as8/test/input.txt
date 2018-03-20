@@ -1,0 +1,21 @@
+break last
+run
+set pagination off
+set logging file a7out.txt
+set logging overwrite
+set logging on
+set prompt
+echo ----- \n\n
+
+echo lst: \t\t \n
+x/13dd &xList1
+
+echo test: \t\t \n
+x/1dd &numtest
+
+
+
+echo --------------------------------------------- \n
+echo \n \n
+set logging off
+quit
